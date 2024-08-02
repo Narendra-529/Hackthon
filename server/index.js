@@ -23,10 +23,11 @@ app.post("/alert", createAlert);
 
 // Connection URL
 const url = process.env.MONGODB_URI;
+console.log(url)
 
 // Connect to MongoDB
 mongoose
-  .connect(url, {})
+  .connect(url)
   .then(() => {
     console.log("Connected to MongoDB", url);
   })
