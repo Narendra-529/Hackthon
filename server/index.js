@@ -28,7 +28,7 @@ const url = process.env.MONGODB_URI;
 mongoose
   .connect(url, {})
   .then(() => {
-    console.log("Connected to MongoDB",url);
+    console.log("Connected to MongoDB", url);
   })
   .catch((error) => {
     console.error("Error connecting to MongoDB:", error.message);
@@ -51,3 +51,5 @@ mongoose
 app.listen(port, () => {
   console.log(`App listening at ${port}`);
 });
+
+module.exports = { app };
