@@ -1,8 +1,9 @@
 const Alert = require("../models/alert.model");
 
-const getAlerts = (req, res) => {
+const getAlerts = async (req, res) => {
   try {
-    return Alert.find();
+    const alerts = await Alert.find();
+    return res.status(200).json(alerts);
   } catch (err) {
     return res.status(500).json(err?.message);
   }
@@ -11,7 +12,7 @@ const getAlerts = (req, res) => {
 const createAlert = (req, res) => {
   try {
     const newAlert = new Alert(req.body);
-    return newAlert;
+    return res.status(200).json(newAlert);
   } catch (err) {
     return res.status(500).json(err?.message);
   }
