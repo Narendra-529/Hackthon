@@ -1,11 +1,8 @@
 {
     "builds": [
       {
-        "src": "src/index.html",
-        "use": "@vercel/static-build",
-        "config": {
-          "distDir": "dist/client"
-        }
+       "src": "angular.json",
+      "use": "@vercel/angular"
       }
     ],
     "routes": [
