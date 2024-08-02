@@ -1,8 +1,12 @@
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
+const express = require("express");
+const cors = require("cors");
+const bodyParser = require("body-parser");
 const app = express();
-const port = 3000;
+require("dotenv").config();
+
+const mongoose = require("mongoose");
+const { createAlert, getAlerts } = require("./services/alert.service");
+const port = process.env.PORT || 3000;
 
 // Enable CORS for all routes
 app.use(cors());
@@ -13,14 +17,37 @@ app.use(bodyParser.json());
 // Parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+app.get("/alerts", getAlerts);
 
-app.post('/data', (req, res) => {
-  res.json(req.body);
-});
+app.post("/alert", createAlert);
+
+// Connection URL
+const url = process.env.MONGODB_URI;
+
+// Connect to MongoDB
+mongoose
+  .connect(url, {})
+  .then(() => {
+    console.log("Connected to MongoDB",url);
+  })
+  .catch((error) => {
+    console.error("Error connecting to MongoDB:", error.message);
+
+    // Handle specific error conditions
+    if (error.name === "MongoNetworkError") {
+      console.error("Network error occurred. Check your MongoDB server.");
+    } else if (error.name === "MongooseServerSelectionError") {
+      console.error(
+        "Server selection error. Ensure" + " MongoDB is running and accessible."
+      );
+    } else {
+      // Handle other types of errors
+      console.error("An unexpected error occurred:", error);
+    }
+  });
+
+// Define a schema
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`App listening at ${port}`);
 });
