@@ -9,9 +9,9 @@ const getAlerts = async (req, res) => {
   }
 };
 
-const createAlert = (req, res) => {
+const createAlert = async (req, res) => {
   try {
-    const newAlert = new Alert(req.body);
+    const newAlert = await new Alert(req.body).save();
     return res.status(200).json(newAlert);
   } catch (err) {
     return res.status(500).json(err?.message);

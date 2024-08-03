@@ -3,6 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const app = express();
 require("dotenv").config();
+// const notification = require("./notification/index")
 
 const mongoose = require("mongoose");
 const { createAlert, getAlerts } = require("./services/alert.service");
@@ -46,6 +47,7 @@ mongoose
       console.error("An unexpected error occurred:", error);
     }
   });
+ 
 
 // Define a schema
 

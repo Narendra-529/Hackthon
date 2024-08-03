@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 // Define the schema
 const alertSchema = new mongoose.Schema({
-  alert_name: {
+  alertName: {
     type: String,
     required: true
   },
