@@ -1,0 +1,35 @@
+<div
+class="p-l-5 p-r-5 m-t-20"
+*ngIf="emissionAlerts$ | async as emissionAlerts; else loadingReports"
+>
+<ng-container *ngIf="(isLoading$ | async) === false">
+  <cwp-dynamictable
+    [dataSource]="dataSource"
+    [configOptions]="configOptions"
+    (rowLevelActionHandler)="openRowLevelActionHandler($event)"
+  ></cwp-dynamictable>
+</ng-container>
+</div>
+
+
+
+<ng-template #loadingReports>
+    <div class="p-0-20 m-t-20 ">
+        <ngx-skeleton-loader
+        [theme]="{
+          'border-radius': '4px',
+          height: '20px',
+          width: '100%',
+        }"
+      ></ngx-skeleton-loader>
+      <div *ngFor="let number of ghostLoading">
+        <ngx-skeleton-loader
+        [theme]="{
+          'border-radius': '4px',
+          height: '20px',
+          width: '100%',
+        }"
+      ></ngx-skeleton-loader>
+      </div>
+    </div>
+  </ng-template>

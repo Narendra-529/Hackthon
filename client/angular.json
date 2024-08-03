@@ -36,11 +36,20 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/scss/style.scss",
+              "src/styles.scss",
+              "node_modules/ngx-spinner/animations/ball-clip-rotate-pulse.css"
+
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/scss"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
@@ -95,11 +104,20 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/scss/style.scss",
+              "src/styles.scss",
+              "node_modules/ngx-spinner/animations/ball-clip-rotate-pulse.css"
+
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/scss"
+              ]
+            },
             "scripts": []
           }
         }
