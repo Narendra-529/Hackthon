@@ -1,0 +1,277 @@
+<div class="header-container">
+  <div class="header-form-container">
+    <ng-container [formGroup]="triggersForm">
+
+
+
+      <span class="matrix-form-header-title">Triggers</span>
+      <!-- <div class="header-form-fields-container">
+          <span class="header-form-field-label"
+            >Parameter </span
+          >
+          <mat-form-field class="full-width" appearance="outline">
+            <input
+              matInput
+              placeholder="Enter Matrix Name"
+              formControlName="name"
+            />
+          </mat-form-field>
+        </div> -->
+
+        <div class="header-form-fields-container">
+          <span class="header-form-field-label"
+            >Asset Name <span class="required">*</span></span
+          >
+          <mat-form-field appearance="outline" class="width-100"
+          
+          >
+            <mat-select
+              formControlName="parameter"
+
+              placeholder="Select Plant"
+              (selectionChange)="onParameterChange($event.value)"
+            >
+              <mat-option *ngFor="let param of parameters" [value]="param">
+                <span class="plant-description">
+                  {{ param }}
+                </span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+      <div class="header-form-fields-container gap-10 m-b-5">
+        <span class="header-form-field-label"
+          >Trigger an Alert when the value is
+          <span class="required">*</span>
+        </span>
+        <mat-radio-group
+          aria-label="Select an option"
+          formControlName="alertTriggerType"
+        >
+          <mat-radio-button value="1">Above</mat-radio-button>
+          <mat-radio-button value="2">Below</mat-radio-button>
+          <mat-radio-button value="3">Range</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div
+        class="dis-flex gap-10 m-b-5"
+        *ngIf="triggersForm.get('alertTriggerType').value === '1'"
+      >
+        <div class="flex-col width-70">
+          <span class="header-form-field-label">Min Value </span>
+          <mat-form-field class="full-width" appearance="outline">
+            <input
+            type="number"
+            min="0"
+              matInput
+              placeholder="Enter the minimum value"
+              formControlName="aboveRange"
+            />
+           
+          </mat-form-field>
+          <div class="required" *ngIf="triggersForm.get('aboveRange').hasError('notNumber')">
+            The value must be a number.
+          </div>
+        </div>
+
+        <div class="flex-col width-50">
+          <span class="header-form-field-label">Units </span>
+          <mat-form-field appearance="outline" class="width-100">
+            <mat-select
+              formControlName="units"
+              placeholder="Select Unit"
+              (selectionChange)="onUnitChange($event.value)"
+            >
+              <mat-option *ngFor="let unit of units" [value]="unit">
+                <span class="plant-description">
+                  {{ unit }}
+                </span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div
+        class="dis-flex gap-10 m-b-5"
+        *ngIf="triggersForm.get('alertTriggerType').value === '2'"
+      >
+        <div class="flex-col width-70">
+          <span class="header-form-field-label">Max Value </span>
+          <mat-form-field class="full-width" appearance="outline">
+            <input
+            type="number"
+            min="0"
+              matInput
+              placeholder="Enter the Maximum Value"
+              formControlName="belowRange"
+            />
+          </mat-form-field>
+        </div>
+
+        <div class="flex-col width-50">
+          <span class="header-form-field-label">Units </span>
+          <mat-form-field appearance="outline" class="width-100">
+            <mat-select
+              formControlName="units"
+              placeholder="Select Unit"
+              (selectionChange)="onUnitChange($event.value)"
+            >
+              <mat-option *ngFor="let unit of units" [value]="unit">
+                <span class="plant-description">
+                  {{ unit }}
+                </span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div
+        class="dis-flex gap-10 m-b-5"
+        *ngIf="triggersForm.get('alertTriggerType').value === '3'"
+      >
+        <div class="flex-col width-70">
+          <span class="header-form-field-label">Min Value </span>
+          <mat-form-field class="full-width" appearance="outline">
+            <input
+            type="number"
+            min="0"
+              matInput
+              placeholder="Enter the Minimum Value"
+              formControlName="aboveRange"
+            />
+          </mat-form-field>
+        </div>
+        <div class="flex-col width-70">
+          <span class="header-form-field-label">Max Value </span>
+          <mat-form-field class="full-width" appearance="outline">
+            <input
+            type="number"
+            min="0"
+              matInput
+              placeholder="Enter the Maximum Value"
+              formControlName="belowRange"
+            />
+          </mat-form-field>
+          <mat-error *ngIf="triggersForm.hasError('rangeInvalid') && (triggersForm.get('aboveRange').touched || triggersForm.get('belowRange').touched)">
+            Below Range must be greater than Above Range.
+          </mat-error>
+        </div>
+
+        <div class="flex-col width-50">
+          <span class="header-form-field-label">Units </span>
+          <mat-form-field appearance="outline" class="width-100">
+            <mat-select
+              formControlName="units"
+              placeholder="Select Unit"
+              (selectionChange)="onUnitChange($event.value)"
+            >
+              <mat-option *ngFor="let unit of units" [value]="unit">
+                <span class="plant-description">
+                  {{ unit }}
+                </span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="header-form-fields-container">
+        <span class="header-form-field-label">For Longer than </span>
+        <mat-form-field appearance="outline" class="width-100">
+          <mat-select
+            formControlName="forLongerThan"
+            placeholder="Select Duration"
+            (selectionChange)="onForLongerThanChange($event.value)"
+          >
+            <mat-option *ngFor="let plant of forLongerThan" [value]="plant">
+              <span class="plant-description">
+                {{ plant }}
+              </span>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="header-form-fields-container gap-10 m-b-5">
+        <span class="header-form-field-label">Alert Type
+        <span class="required">*</span>
+
+           </span>
+        <mat-radio-group
+          aria-label="Select an option"
+          formControlName="alertType"
+        >
+          <mat-radio-button value="1">Pop-Up Alert</mat-radio-button>
+          <mat-radio-button value="2">Push Notification</mat-radio-button>
+          <mat-radio-button disabled value="3">Email</mat-radio-button>
+          <mat-radio-button disabled value="4">SMS</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div class="header-form-fields-container gap-10 m-b-5">
+        <span class="header-form-field-label">Send To 
+          <span class="required">*</span>
+        </span>
+        
+        <mat-radio-group aria-label="Select an option" formControlName="sendTo">
+          <mat-radio-button value="1">User Groups</mat-radio-button>
+          <mat-radio-button value="2">Individual Users</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div class="tags-container header-form-fields-container "
+      [ngClass]="{ 'tags-field': !triggersForm.get('sendTo').value }"
+      >
+        <span class="header-form-field-label">Select Alert Recipients </span>
+        <mat-form-field
+          class="chips-list width-100 tags-formfield"
+          appearance="outline"
+        >
+          <mat-chip-list #chipList>
+            <mat-chip
+              *ngFor="let tag of matrixHeadertags"
+              [selectable]="selectable"
+              [removable]="removable"
+              (removed)="removeAdditionalDetailsTag(tag)"
+              class="tags-mat-chips"
+            >
+              {{ tag }}
+              <mat-icon matChipRemove *ngIf="removable" id="cancelTag"
+                >cancel</mat-icon
+              >
+            </mat-chip>
+            <input
+            [disabled]="!triggersForm.get('sendTo').value "
+              id="AddTag"
+              class="tags-input"
+              [placeholder]="'Start typing to see Users and User Groups'"
+              [matChipInputFor]="chipList"
+              [matAutocomplete]="auto"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              (matChipInputTokenEnd)="addMatrixHeaderTag($event)"
+              #tagsInput
+              [formControl]="matrixHeaderTagsCtrl"
+              />
+          </mat-chip-list>
+  
+          <mat-autocomplete
+            #auto="matAutocomplete"
+            (optionSelected)="selected($event)"
+          >
+            <mat-option
+              *ngFor="let tag of matrixHeaderFilteredTags | async"
+              [value]="tag"
+              id="tagOptions"
+            >
+              {{ tag }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </ng-container>
+  </div>
+</div>

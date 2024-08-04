@@ -1,0 +1,156 @@
+
+<div class="alerts-container">
+    <mat-tab-group
+      class="round-plan-archived"
+      animationDuration="0ms"
+      [selectedIndex]="getSelectedIndex()"
+      (selectedTabChange)="onTabChange($event)"
+    >
+      <mat-tab
+        id="emissions"
+        label="Emission Alerts"
+      >
+        <!-- <ng-template mat-tab-label> Emission Alerts </ng-template> -->
+        <!-- <div *ngIf="tabIndex === 0" > -->
+
+          <!-- <app-lazy-load-container > -->
+            <!-- <ng-template #body > -->
+              <app-emission-alerts *ngIf="tabIndex === 0" ></app-emission-alerts>
+              <!-- <app-archived-round-plan-template-list></app-archived-round-plan-template-list> -->
+            <!-- </ng-template> -->
+          <!-- </app-lazy-load-container> -->
+        <!-- </div> -->
+      </mat-tab>
+      <mat-tab id="weather">
+        <ng-template mat-tab-label> Weather Alerts </ng-template>
+        <app-lazy-load-container>
+          <ng-template #body>
+            <!-- <lib-archive-reports></lib-archive-reports> -->
+  
+            <!-- <app-archived-round-plan-list></app-archived-round-plan-list> -->
+          </ng-template>
+        </app-lazy-load-container>
+      </mat-tab>
+      <mat-tab id="logs">
+        <ng-template mat-tab-label>Alert Logs</ng-template>
+        <app-lazy-load-container>
+          <ng-template #body>
+            <!-- <lib-archive-reports></lib-archive-reports> -->
+  
+            <!-- <app-archived-round-plan-list></app-archived-round-plan-list> -->
+          </ng-template>
+        </app-lazy-load-container>
+      </mat-tab>
+    
+    </mat-tab-group>
+   
+  
+  </div>
+  <div class="filters-container">
+
+    <div class="search-container">
+      <div class="search-icon-input-container">
+        <svg-icon
+          icon="matrix-search-icon"
+          class="search-icon"
+        ></svg-icon>
+        <div class="search-change">
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Search..."
+            (input)="onChangeSearchValue($event)"
+            [value]="searchValue"
+          />
+          <button
+            *ngIf="isShowSearchCloseIcon"
+            class="search-close-btn"
+            (click)="onSearchClose()"
+          >
+            <svg-icon
+              icon="matrix-filter-close-icon"
+              class="filter-close-icon"
+            ></svg-icon>
+          </button>
+        </div>
+      </div>
+
+      <button class="filter-btn" #filterIconBtn (click)="onClickFilterIcon()">
+        <svg-icon
+          icon="matrix-filter-icon"
+          class="filter-icon"
+        ></svg-icon>
+      </button>
+    </div>
+    <div class="createButton">
+      <button
+        #addLanguageIcon
+        (click)="onClickCreateNew()"
+        class="createNewButton"
+        >
+        <!-- [matMenuTriggerFor]="addNewMenu" -->
+        Create New Alert
+      </button>
+    </div>
+  </div>
+
+
+  <ng-template #filterContent>
+    <div class="filter-container" [formGroup]="filterFormListView">
+      <div class="filter-header-container">
+        <div class="filter-heading">Filter</div>
+  
+        <button class="filter-close-btn" (click)="onClickFilterClose()">
+          <svg-icon
+            icon="matrix-filter-close-icon"
+            class="filter-close-icon"
+          ></svg-icon>
+        </button>
+      </div>
+  
+      <mat-form-field appearance="outline" class="">
+        <mat-label>Last Modified On</mat-label>
+        <mat-select
+          formControlName="lastModifiedOn"
+          placeholder="Last Modified On"
+          multiple
+          ><mat-option
+            *ngFor="let name of timeFilter; let i = index"
+            [value]="name.value"
+          >
+            {{ name.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="">
+        <mat-label>Last Modified By</mat-label>
+        <mat-select
+          formControlName="lastModifiedBy"
+          placeholder="Last Modified By"
+          multiple
+          ><mat-option> James </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="filter-footer-btns">
+        <button
+          [ngClass]="
+            filterFormListView.get('lastModifiedOn').value === '' &&
+            filterFormListView.get('lastModifiedBy').value === ''
+              ? 'filter-reset-btn-disable'
+              : 'filter-reset-btn-enable'
+          "
+          (click)="onClickFilterReset()"
+          [disabled]="
+            filterFormListView.get('lastModifiedOn').value === '' &&
+            filterFormListView.get('lastModifiedBy').value === ''
+          "
+        >
+          Reset
+        </button>
+        <button class="filter-apply-btn-enable" (click)="onClickFilterApply()">
+          Apply
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  
