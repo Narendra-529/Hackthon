@@ -1,6 +1,20 @@
 const async = require("async");
 const { Alert } = require("./models/alert.model");
 const { sendNotification } = require("./notification");
+const LogModel = require("./models/alertlog.model");
+// const { LogAlertDetails } = require("./services/simulate.servce");
+
+async function LogAlertDetails(alert, messagepayload) {
+    try {
+      let payload = {
+        logMessage: messagepayload.body,
+        alertDetails: { ...alert },
+      };
+      await new LogModel(payload).save();
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
 const queue = async.queue(async (doc, callback) => {
   try {
@@ -50,6 +64,7 @@ async function processRecord(doc) {
             );
             if (diff > doc.longerTime) {
               await sendNotification(payload);
+              await LogAlertDetails(rec, payload);
               await Alert.findByIdAndUpdate(rec._id, { lastPointTime: null });
               console.log(diff, "ffff");
             }
@@ -71,7 +86,9 @@ async function processRecord(doc) {
               rec.lastPointTime
             );
             if (diff > doc.longerTime) {
+                // await LogAlertDetails(rec, payload);
               await sendNotification(payload);
+              await LogAlertDetails(rec, payload);
               await Alert.findByIdAndUpdate(rec._id, { lastPointTime: null });
               console.log(diff, "ffff");
             }

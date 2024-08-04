@@ -84,17 +84,7 @@ async function simulateProcess(req, res) {
     };
   }
 
-  async function LogAlertDetails(alert, messagepayload) {
-    try {
-      let payload = {
-        logMessage: messagepayload.body,
-        alertDetails: { ...alert },
-      };
-      await new LogModel(payload).save();
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  
 
   let dbRecords = await Alert.find({
     "asset.assetId": equipment,
@@ -113,11 +103,11 @@ async function simulateProcess(req, res) {
         if (trigger.type == 2 && medianValue <= trigger.value) {
           console.log("inside", trigger.type);
           await sendNotification(payload);
-          await LogAlertDetails(rec, payload);
+        //   await LogAlertDetails(rec, payload);
         } else if (trigger.type == 1 && medianValue >= trigger.value) {
           console.log("inside", trigger.type);
           await sendNotification(payload);
-          await LogAlertDetails(rec, payload);
+        //   await LogAlertDetails(rec, payload);
         } else if (trigger.type == 3) {
           console.log("inside", trigger.type);
           const { countOutsideRange } = checkValues(
@@ -127,7 +117,7 @@ async function simulateProcess(req, res) {
           );
           if (countOutsideRange > records.length / 2) {
             await sendNotification(payload);
-            await LogAlertDetails(rec, payload);
+            // await LogAlertDetails(rec, payload);
           }
         }
       }
@@ -148,5 +138,7 @@ async function createEmission(req, res) {
     return res.status(500).send("Internal Server Error");
   }
 }
+
+
 
 module.exports = { simulateProcess, createEmission };
