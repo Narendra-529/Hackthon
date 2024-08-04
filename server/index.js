@@ -3,9 +3,11 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const app = express();
 require("dotenv").config();
+const notification = require("./notification/index")
 
 const mongoose = require("mongoose");
-const { createAlert, getAlerts } = require("./services/alert.service");
+const { createAlert, getAlerts ,updateAlert, alertLogs} = require("./services/alert.service");
+const { simulateProcess } = require("./services/simulate.servce");
 const port = process.env.PORT || 3000;
 
 // Enable CORS for all routes
@@ -20,6 +22,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/alerts", getAlerts);
 
 app.post("/alert", createAlert);
+app.post("/simulate",simulateProcess);
+
+app.put('/alert/:id', updateAlert);
+
+app.get('/alert/logs',alertLogs)
+
 
 // Connection URL
 const url = process.env.MONGODB_URI;
@@ -46,6 +54,7 @@ mongoose
       console.error("An unexpected error occurred:", error);
     }
   });
+ 
 
 // Define a schema
 
