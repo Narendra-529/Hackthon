@@ -6,6 +6,7 @@ const emissionSchema = new mongoose.Schema(
     assetId: String,
     parameter: String,
     value: Number,
+    insertedAt:Number
   },
   {
     timestamps: true, // This will add createdAt and updatedAt timestamps

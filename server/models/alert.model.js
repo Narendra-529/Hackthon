@@ -7,6 +7,9 @@ const alertSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    description: {
+      type: String,
+    },
     plant: {
       plantId: {
         type: String,
@@ -49,13 +52,16 @@ const alertSchema = new mongoose.Schema(
           required: true,
         },
         type: {
-          type: String,
-          enum: ["above", "below", "range"],
+          type: Number,
         },
         value: Number,
         unit: String,
         min: Number,
         max: Number,
+        longerThan: Number,
+        alertType: Number,
+        sendTo: Number,
+        users: mongoose.Schema.Types.Mixed,
       },
     ],
   },
