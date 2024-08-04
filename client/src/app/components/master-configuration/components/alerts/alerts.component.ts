@@ -1,10 +1,13 @@
-import { Component, ElementRef, TemplateRef, ViewChild } from "@angular/core";
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { MatTabChangeEvent } from "@angular/material/tabs";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 
 import {MatDialog} from '@angular/material/dialog';
 import { timeFilter } from "../../constants";
 import { MatrixStatus } from "../../interfaces";
+import { ActivatedRoute, Router } from "@angular/router";
+import { AlertsEditModalComponent } from "../alerts-edit/alerts-edit-modal.component";
+import { AlertService } from "../../services/alert.service";
 
 
 
@@ -13,7 +16,7 @@ import { MatrixStatus } from "../../interfaces";
     templateUrl: "./alerts.component.html",
     styleUrls: ["./alerts.component.scss"],
     })
-export class AlertsComponent {
+export class AlertsComponent implements OnInit {
 
   @ViewChild('filterIconBtn') filterIconBtn: ElementRef;
   @ViewChild('filterContent') filterContent: TemplateRef<any>;
@@ -33,6 +36,8 @@ export class AlertsComponent {
   
   constructor(private dialog:MatDialog,
     private fb: FormBuilder,
+    private router: Router,
+    private alertService: AlertService,
   ) {
   
   }
@@ -42,7 +47,11 @@ export class AlertsComponent {
   timeFilter: MatrixStatus[] = timeFilter;
 
 
-
+  ngOnInit(): void {
+    this.tabIndex = 0
+    // this.onClickCreateNew()
+    
+  }
 
 
 
@@ -165,6 +174,28 @@ export class AlertsComponent {
     
         // this.cdr.detectChanges();
         // this.filterIconrefvariable.close();
+      }
+
+
+      onClickCreateNew = () => {
+        this.tabIndex = -1
+        const ref = this.dialog.open(AlertsEditModalComponent, {
+          maxWidth: '100vw',
+          maxHeight: '100vh',
+          height: '100%',
+          width: '100%',
+          panelClass: 'full-screen-modal',
+          disableClose: true,
+          data: {
+            formData: null,
+            type: 'create'
+          }
+        });
+
+        ref.afterClosed().subscribe((result) => {
+         this.tabIndex = 0
+        });
+
       }
 }
 

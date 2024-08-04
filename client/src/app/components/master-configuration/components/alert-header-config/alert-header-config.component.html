@@ -1,0 +1,95 @@
+<div class="header-container">
+    <div class="header-form-container">
+      <ng-container [formGroup]="riskMatrixHeaderForm">
+        <span class="matrix-form-header-title">Configure Alert</span>
+        <div class="header-form-fields-container">
+          <span class="header-form-field-label"
+            >Alert Name <span class="required">*</span></span
+          >
+          <mat-form-field class="full-width" appearance="outline">
+            <input
+              matInput
+              placeholder="Enter Matrix Name"
+              formControlName="name"
+            />
+          </mat-form-field>
+        </div>
+  
+  
+        <div class="header-form-fields-container">
+          <span class="header-form-field-label"
+            >Plant Name <span class="required">*</span></span
+          >
+          <mat-form-field appearance="outline" class="width-100">
+            <mat-select
+              formControlName="plantInfo"
+              [compareWith]="comparePlants"
+              placeholder="Select Plant"
+              (selectionChange)="onPlantSelectChange($event.value)"
+            >
+              <mat-option *ngFor="let plant of plants" [value]="plant">
+                <span class="plant-description">
+                  {{ plant.plantName }}
+                </span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="header-form-fields-container">
+            <span class="header-form-field-label"
+              >Location Name<span class="required">*</span></span
+            >
+            <mat-form-field appearance="outline" class="width-100">
+              <mat-select
+                formControlName="location"
+                [compareWith]="compareLocations"
+                placeholder="Select Location"
+                (selectionChange)="onLocationSelectChange($event.value)"
+              >
+                <mat-option *ngFor="let plant of locations" [value]="plant">
+                  <span class="plant-description">
+                    {{ plant.locationName }}
+                  </span>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="header-form-fields-container">
+            <span class="header-form-field-label"
+              >Asset Name <span class="required">*</span></span
+            >
+            <mat-form-field appearance="outline" class="width-100"
+            
+            >
+              <mat-select
+                formControlName="asset"
+                [compareWith]="compareAssets"
+                placeholder="Select Plant"
+                (selectionChange)="onAssetSelectChange($event.value)"
+              >
+                <mat-option *ngFor="let plant of assets" [value]="plant">
+                  <span class="plant-description">
+                    {{ plant.assetName }}
+                  </span>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="header-form-fields-container">
+            <span class="header-form-field-label">What is Detected</span>
+            <mat-form-field class="full-width" appearance="outline">
+              <input
+                formControlName="description"
+                matInput
+                placeholder="Enter Details"
+              />
+            </mat-form-field>
+          </div>
+      </ng-container>
+  
+    
+    </div>
+  </div>
+  

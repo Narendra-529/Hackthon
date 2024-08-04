@@ -13,6 +13,8 @@ import { MatListModule } from '@angular/material/list';
 import { ErrorHandlerModule } from './shared/error-handler/error-handler.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { ToastModule } from './shared/toast';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     DynamictableModule,
     MatListModule,
     ErrorHandlerModule,
+    StoreModule.forRoot({}, {}),
+    ToastModule.forRoot(),
+
 
   ],
   providers: [],

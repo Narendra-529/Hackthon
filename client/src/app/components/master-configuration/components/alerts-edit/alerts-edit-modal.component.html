@@ -1,0 +1,95 @@
+<app-dynamic-stepper
+  [steps]="steps"
+  [currentStep]="currentStep"
+  [showGoBack]="true"
+  (goBack)="goBack()"
+  (gotoStep)="onGotoStep($event)"
+>
+  <div stepsContent id="formStepperFirstStep">
+    <div align="end" class="buttons-container">
+
+      <!-- <button
+        id="cancelBtn"
+        mat-stroked-button
+        type="button"
+        color="primary"
+        class="header-action-btns previous-btn"
+        (click)="onPrevious()"
+      >
+        Previous
+      </button> -->
+      <button
+        id="nextBtn"
+        mat-raised-button
+        type="button"
+        [disabled]="riskMatrixErrorData?.status === 'INVALID' || isLoading || isNextBtnDisabled"
+        color="primary"
+        class="header-action-btns next-btn"
+        (click)="next()"
+        *ngIf="currentStep === 0"
+      >
+        Next
+      </button>
+      <button
+        id="nextBtn"
+        mat-raised-button
+        type="button"
+        [disabled]="riskMatrixErrorData?.status === 'INVALID' || isLoading"
+        color="primary"
+        class="header-action-btns next-btn"
+        (click)="saveNext()"
+        *ngIf="
+          currentStep === 1
+        "
+      >
+        Save & Next
+      </button>
+    </div>
+
+    
+
+    <!-- STEP 1 -->
+    <div class="steps-container" *ngIf="currentStep === 0">
+      <!-- <app-form-header-configuration
+        [data]="data"
+        [formData]="formData"
+        (gotoNextStep)="gotoNextStep()"
+      ></app-form-header-configuration> -->
+        
+      <app-alert-header-config
+      (riskMatrixFormErrorEvent)="onRiskMatrixFormErrorEvent($event)"
+      (headerData)="onHeaderDataEvent($event)"
+      [initialData]="initialData"
+      
+      >
+
+      </app-alert-header-config>
+    </div>
+
+    <!-- STEP 2 -->
+    <div
+      id="formStepperSecondStep"
+      *ngIf="currentStep === 1"
+      class="steps-container"
+
+    >
+    <app-alert-trigger
+    (riskMatrixFormErrorEvent)="onRiskMatrixFormErrorEvent($event)"
+    (dataEvent)="onTriggerDataEvent($event)"
+    [initialData]="initialData"
+    >
+
+    </app-alert-trigger>
+    </div>
+
+    <!-- STEP 3 -->
+    <div
+      id="formStepperThirdStep"
+      *ngIf="currentStep === 2"
+      class="steps-container"
+    >
+      <!-- <app-risk-matrix-likelihood></app-risk-matrix-likelihood> -->
+    </div>
+
+  </div>
+</app-dynamic-stepper>

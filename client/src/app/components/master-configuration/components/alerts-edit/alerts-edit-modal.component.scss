@@ -1,0 +1,88 @@
+@import '../../../../../scss/colors.scss';
+
+.buttons-container {
+  padding: 10px 0 10px 0;
+  margin-right: 0;
+  width: 100%;
+  background-color: #f9faff;
+  border-bottom: 1px solid #e0e0e0;
+
+  .header-action-btns {
+    width: 10%;
+    padding: 9px 15px 9px 15px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20.02px;
+    letter-spacing: 0.15000000596046448px;
+  }
+
+  .next-btn {
+    margin-right: 22px;
+    background-color: $radio-button-checked;
+    border-color: $radio-button-checked;
+  }
+
+  .next-btn:disabled {
+    background-color: #e0e0e0;
+    // border-color: #9E9E9E
+  }
+
+  .previous-btn {
+    margin-right: 15px;
+    color: $radio-button-checked;
+    border: 1px solid $blue-main;
+  }
+
+  .previous-btn:disabled {
+    color: #e0e0e0;
+    border: 1px solid #e0e0e0;
+  }
+}
+
+.steps-container {
+  // background-color: $light-blue-bg;
+  height: 90vh;
+  background-color: white;
+}
+
+.previewBtn {
+  color: $radio-button-checked;
+  font-weight: 400;
+  letter-spacing: 0.15px;
+
+  .preview-icon {
+    height: 26px;
+    width: 22px;
+    margin-right: 2px;
+  }
+}
+
+.previewBtn:disabled {
+  color: #9e9e9e;
+}
+
+.priority-matrix-container {
+  width: 100%;
+  height: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  overflow: auto;
+  max-height: calc(100vh - 120px);
+  display: flex;
+  justify-content: center;
+  background: white;
+  padding: 0px 4px;
+  .priority-matrix {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}
+
+.dialog-content {
+  padding: 28px;
+  width: 800px;
+  max-width: 100%;
+  max-height: calc(100vh - 60px);
+  box-sizing: border-box;
+  /* Adjust as needed */
+}

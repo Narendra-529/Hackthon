@@ -1,0 +1,154 @@
+@import 'colors.scss';
+
+.form-toolbar {
+  height: 50px;
+  background-color: $white;
+  border-bottom: 1px solid $border-color;
+
+  .back-btn {
+    border: none;
+    background-color: transparent;
+
+    .back-arrow {
+      height: 15px;
+      width: 15px;
+      position: relative;
+      top: 2px;
+    }
+
+    .back-text {
+      padding-left: 12px;
+      font-weight: 500;
+      font-size: initial;
+    }
+  }
+
+  .close-icon {
+    height: 13px;
+    width: 13px;
+    position: relative;
+    top: 3px;
+  }
+
+  .close-txt {
+    font-size: 120%;
+    font-weight: 500;
+    margin-left: 7px;
+    position: relative;
+    top: 2px;
+  }
+}
+
+.stepper-toolbar {
+  display: flex;
+  width: 100%;
+}
+
+.stepper-container {
+  height: 63px;
+  position: relative;
+  left: 27%;
+  width: 40%;
+
+  ::ng-deep .mat-step-header {
+    height: 55px;
+  }
+
+  ::ng-deep .mat-step-header:hover:not([aria-disabled]) {
+    background-color: transparent;
+  }
+
+  ::ng-deep .mat-step-header .mat-step-icon-selected {
+    background-color: $blue-main;
+  }
+}
+
+.steps-breadcrumb {
+  display: flex;
+  border: none;
+  background: none;
+  padding-inline: 4px;
+
+  .title {
+    position: relative;
+    top: 4px;
+    color: $black;
+  }
+
+  .index span {
+    color: $black;
+  }
+
+  .index {
+    display: flex;
+    margin-right: 6px;
+
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      width: 23px;
+      height: 23px;
+      border-radius: 100%;
+      background-color: $blue-main;
+      color: $white;
+    }
+  }
+
+  &.current {
+    .title {
+      color: $blue-main;
+      font-weight: 500;
+    }
+
+    .index span {
+      color: $white;
+    }
+  }
+}
+
+.stepper-div {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 5px;
+  gap: 4px;
+
+  .stepperLine {
+    border-bottom: 2px solid $blue-main;
+    height: 108%;
+  }
+}
+
+.stepper-line {
+  position: relative;
+  top: 12px;
+  width: auto;
+  margin: 0;
+  border-bottom: none;
+  border-top: 2px solid $disable-stpper-bg;
+  border-left: none;
+  border-right: none;
+}
+
+.disable-step {
+  cursor: not-allowed;
+
+  .title {
+    color: $gray1;
+    position: relative;
+    top: 4px;
+  }
+
+  .index span {
+    background-color: $disable-stpper-bg;
+    color: $light-gray;
+  }
+}
+
+.completed-step {
+  .index span {
+    background-color: $green3;
+  }
+}

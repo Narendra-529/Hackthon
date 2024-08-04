@@ -28,7 +28,7 @@ import { StoreModule } from '@ngrx/store';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTabGroup, MatTabsModule } from '@angular/material/tabs';
 // import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MasterConfigurationRoutingModule } from './master-configuration-routing.module';
 import { MatTableModule } from '@angular/material/table';
@@ -42,15 +42,31 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MasterConfigurationContainerComponent } from './master-config-container/master-config.component';
 import { AlertsComponent } from './components/alerts/alerts.component';
 import { EmissionAlertsComponent } from './components/emission-alerts/emission-alerts.component';
+import { AlertsEditComponent } from './components/alerts-edit/alerts-edit.component';
+import { AlertsEditModalComponent } from './components/alerts-edit/alerts-edit-modal.component';
+import { DynamicStepperComponent } from './components/dynamic-stepper/dynamic-stepper.component';
+import { StepsheaderComponent } from './components/stepsheader/stepsheader.component';
+import { AlertHeaderConfigComponent } from './components/alert-header-config/alert-header-config.component';
+import { riskMatrixConfigurationReducer } from './state/risk-matrix.reducer';
+import { AlertTriggerComponent } from './components/alert-trigger/alert-trigger.component';
+// import { RiskMatrixEffects } from './state/risk-matrix.effects';
 @NgModule({
   declarations: [
     MasterConfigurationContainerComponent,
     AlertsComponent,
-    EmissionAlertsComponent
+    EmissionAlertsComponent,
+    AlertsEditComponent,
+    AlertsEditModalComponent,
+    DynamicStepperComponent,
+    StepsheaderComponent,
+    AlertHeaderConfigComponent,
+    AlertTriggerComponent,
+
+
   ],
   imports: [
     // MatDialogModule,
-    
+    HttpClientModule,
     NgxSkeletonLoaderModule,
     MatAutocompleteModule,
     DynamictableModule,
@@ -95,6 +111,10 @@ import { EmissionAlertsComponent } from './components/emission-alerts/emission-a
     MasterConfigurationRoutingModule,
     MatTableModule,
     MatToolbarModule,
+    StoreModule.forFeature('RiskMatrix', {
+      riskMatrixConfiguration: riskMatrixConfigurationReducer,
+    }),
+    // EffectsModule.forFeature([RiskMatrixEffects]),
   ],
   exports: [],
   providers: []

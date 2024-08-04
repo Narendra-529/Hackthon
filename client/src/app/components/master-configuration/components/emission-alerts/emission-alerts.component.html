@@ -2,7 +2,7 @@
 class="p-l-5 p-r-5 m-t-20"
 *ngIf="emissionAlerts$ | async as emissionAlerts; else loadingReports"
 >
-<ng-container *ngIf="(isLoading$ | async) === false">
+<ng-container >
   <cwp-dynamictable
     [dataSource]="dataSource"
     [configOptions]="configOptions"

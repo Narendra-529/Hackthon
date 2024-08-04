@@ -1,6 +1,6 @@
 import { Column, MatrixStatus } from "./interfaces";
 
-export const emissionsColumns: Column[] = [
+export const  emissionsColumns: Column[] = [
     {
       id: 'alertName',
       displayName: 'Alert Name',
@@ -23,7 +23,7 @@ export const emissionsColumns: Column[] = [
       },
       hasSubtitle: true,
       showMenuOptions: false,
-      subtitleColumn: 'assetsId',
+      subtitleColumn: 'alertSubId',
       subtitleStyle: {
         'font-size': '80%',
         color: 'darkgray',
@@ -66,9 +66,9 @@ export const emissionsColumns: Column[] = [
       type: 'string',
       controlType: 'string',
       order: 3,
-      hasSubtitle: false,
+      hasSubtitle: true,
       showMenuOptions: false,
-      subtitleColumn: '',
+      subtitleColumn: 'locationSubId',
       searchable: false,
       sortable: true,
       hideable: false,
@@ -80,7 +80,11 @@ export const emissionsColumns: Column[] = [
       titleStyle: {
         'overflow-wrap': 'anywhere'
       },
-      subtitleStyle: {},
+      subtitleStyle: {
+        'font-size': '80%',
+        color: 'darkgray',
+        'overflow-wrap': 'anywhere'
+      },
       hasPreTextImage: false,
       hasPostTextImage: false,
       hasConditionalStyles: true
@@ -91,9 +95,9 @@ export const emissionsColumns: Column[] = [
       type: 'number',
       controlType: 'string',
       order: 4,
-      hasSubtitle: false,
+      hasSubtitle: true,
       showMenuOptions: false,
-      subtitleColumn: '',
+      subtitleColumn: 'assetSubId',
       searchable: false,
       sortable: true,
       hideable: false,
@@ -103,7 +107,11 @@ export const emissionsColumns: Column[] = [
       sticky: false,
       groupable: true,
       titleStyle: {},
-      subtitleStyle: {},
+      subtitleStyle: {
+        'font-size': '80%',
+        color: 'darkgray',
+        'overflow-wrap': 'anywhere'
+      },
       hasPreTextImage: false,
       hasPostTextImage: false
     },
@@ -133,36 +141,53 @@ export const emissionsColumns: Column[] = [
         'overflow-wrap': 'anywhere'
       },
       hasPreTextImage: false,
-      hasPostTextImage: false
+      hasPostTextImage: false,
+      hasConditionalStyles: true,
+          // titleStyle: {
+          //   textTransform: 'capitalize',
+          //   fontWeight: 500,
+          //   display: 'flex',
+          //   flexDirection: 'row',
+          //   justifyContent: 'center',
+          //   alignItems: 'center',
+          //   position: 'relative',
+          //   top: '10px',
+          //   width: '90px',
+          //   right: '15px',
+          //   height: '24px',
+          //   background: '#FEF3C7',
+          //   color: '#92400E',
+          //   borderRadius: '12px'
+          // }
     },
-    {
-      id: 'usergroups',
-      displayName: 'User Groups',
-      type: 'string',
-      controlType: 'string',
-      order: 5,
-      hasSubtitle: true,
-      showMenuOptions: false,
-      subtitleColumn: 'parentSubId',
-      searchable: false,
-      sortable: true,
-      hideable: false,
-      visible: true,
-      movable: false,
-      stickable: false,
-      sticky: false,
-      groupable: true,
-      titleStyle: {
-        'overflow-wrap': 'anywhere'
-      },
-      subtitleStyle: {
-        'font-size': '80%',
-        color: 'darkgray',
-        'overflow-wrap': 'anywhere'
-      },
-      hasPreTextImage: false,
-      hasPostTextImage: false
-    }
+    // {
+    //   id: 'usergroups',
+    //   displayName: 'User Groups',
+    //   type: 'string',
+    //   controlType: 'string',
+    //   order: 5,
+    //   hasSubtitle: true,
+    //   showMenuOptions: false,
+    //   subtitleColumn: 'parentSubId',
+    //   searchable: false,
+    //   sortable: true,
+    //   hideable: false,
+    //   visible: true,
+    //   movable: false,
+    //   stickable: false,
+    //   sticky: false,
+    //   groupable: true,
+    //   titleStyle: {
+    //     'overflow-wrap': 'anywhere'
+    //   },
+    //   subtitleStyle: {
+    //     'font-size': '80%',
+    //     color: 'darkgray',
+    //     'overflow-wrap': 'anywhere'
+    //   },
+    //   hasPreTextImage: false,
+    //   hasPostTextImage: false
+    // }
   ];
 
 
@@ -184,3 +209,26 @@ export const timeFilter: MatrixStatus[] = [
   },
   { label: 'Last 3 Years', value: 'lastThreeYears' }
 ];
+
+
+
+
+
+export const forLongerThan =[
+  '1 Minute',
+  '2 Minutes',
+  '5 Minutes',
+  '10 Minutes',
+  '30 Minutes',
+  '60 Minutes',
+  '2 Hours',
+  '6 Hours',
+  '12 Hours',
+  '24 Hours'
+]
+
+export const units = ['kg/MWhr']
+
+export const users = ['Prashanth','Geetha','Narendra']
+
+export const userGroups=['Maintainance Engineer','Asset Manager','Compliance Officer','EHS Manager','Operations Manager','Safety Officer','Sustainability Officer']

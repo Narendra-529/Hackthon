@@ -8,14 +8,18 @@
     >
       <mat-tab
         id="emissions"
+        label="Emission Alerts"
       >
-        <ng-template mat-tab-label> Emission Alerts </ng-template>
-        <app-lazy-load-container>
-          <ng-template #body>
-            <app-emission-alerts></app-emission-alerts>
-            <!-- <app-archived-round-plan-template-list></app-archived-round-plan-template-list> -->
-          </ng-template>
-        </app-lazy-load-container>
+        <!-- <ng-template mat-tab-label> Emission Alerts </ng-template> -->
+        <!-- <div *ngIf="tabIndex === 0" > -->
+
+          <!-- <app-lazy-load-container > -->
+            <!-- <ng-template #body > -->
+              <app-emission-alerts *ngIf="tabIndex === 0" ></app-emission-alerts>
+              <!-- <app-archived-round-plan-template-list></app-archived-round-plan-template-list> -->
+            <!-- </ng-template> -->
+          <!-- </app-lazy-load-container> -->
+        <!-- </div> -->
       </mat-tab>
       <mat-tab id="weather">
         <ng-template mat-tab-label> Weather Alerts </ng-template>
@@ -81,10 +85,11 @@
     <div class="createButton">
       <button
         #addLanguageIcon
+        (click)="onClickCreateNew()"
         class="createNewButton"
         >
         <!-- [matMenuTriggerFor]="addNewMenu" -->
-        Add Language
+        Create New Alert
       </button>
     </div>
   </div>
