@@ -3,7 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const app = express();
 require("dotenv").config();
-const {sendNotification} = require("./notification/index")
+const notification = require("./notification/index")
 
 const mongoose = require("mongoose");
 const { createAlert, getAlerts ,updateAlert, alertLogs} = require("./services/alert.service");

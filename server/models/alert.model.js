@@ -58,7 +58,7 @@ const alertSchema = new mongoose.Schema(
         unit: String,
         min: Number,
         max: Number,
-        longerThan: Number,
+        longerThan: String,
         alertType: Number,
         sendTo: Number,
         users: mongoose.Schema.Types.Mixed,
