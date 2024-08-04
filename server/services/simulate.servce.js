@@ -107,12 +107,15 @@ async function simulateProcess(req,res) {
         };
   
         if (trigger.type == 2 && medianValue <= trigger.value) {
+        console.log('inside',trigger.type)
           await sendNotification(payload);
           await LogAlertDetails(rec, payload);
         } else if (trigger.type == 1  && medianValue >= trigger.value) {
+            console.log('inside',trigger.type)
           await sendNotification(payload);
           await LogAlertDetails(rec, payload);
         } else if (trigger.type == 3) {
+            console.log('inside',trigger.type)
           const { countOutsideRange } = checkValues(records, trigger.min, trigger.max);
           if (countOutsideRange > (records.length / 2)) {
             await sendNotification(payload);
