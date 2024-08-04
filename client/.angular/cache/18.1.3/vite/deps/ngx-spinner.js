@@ -1,7 +1,6 @@
 import {
   DomSanitizer
 } from "./chunk-EN6UKMBD.js";
-import "./chunk-CX66FAB7.js";
 import {
   animate,
   state,
@@ -9,6 +8,7 @@ import {
   transition,
   trigger
 } from "./chunk-JJ4ENG2O.js";
+import "./chunk-CX66FAB7.js";
 import {
   CommonModule,
   NgForOf,

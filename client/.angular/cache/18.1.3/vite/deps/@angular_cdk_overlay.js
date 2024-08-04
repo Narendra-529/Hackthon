@@ -22,8 +22,9 @@ import {
   ScrollingVisibility,
   validateHorizontalPosition,
   validateVerticalPosition
-} from "./chunk-TO3XXBCZ.js";
+} from "./chunk-T44IWAYL.js";
 import "./chunk-VEHDF5JB.js";
+import "./chunk-MVH5TN3D.js";
 import {
   CdkScrollable,
   ScrollDispatcher,
@@ -31,7 +32,6 @@ import {
 } from "./chunk-VQZTIQC5.js";
 import "./chunk-2F4FYE72.js";
 import "./chunk-CPTXJDSR.js";
-import "./chunk-MVH5TN3D.js";
 import "./chunk-SJMBSDCY.js";
 import "./chunk-GMUXDIJ2.js";
 import "./chunk-TQO6VFQJ.js";

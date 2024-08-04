@@ -7,7 +7,7 @@ const notification = require("./notification/index")
 
 const mongoose = require("mongoose");
 const { createAlert, getAlerts ,updateAlert, alertLogs} = require("./services/alert.service");
-const { simulateProcess } = require("./services/simulate.servce");
+const { simulateProcess, createEmission } = require("./services/simulate.servce");
 const port = process.env.PORT || 3000;
 
 // Enable CORS for all routes
@@ -27,6 +27,8 @@ app.post("/simulate",simulateProcess);
 app.put('/alert/:id', updateAlert);
 
 app.get('/alert/logs',alertLogs)
+
+app.post('/emission',createEmission)
 
 
 // Connection URL

@@ -40,6 +40,7 @@ const sendNotification = async (message, token = Token) => {
   }
 
 };
+// sendNotification({title:'hee',body:'aaa'})
 
 
 module.exports = { sendNotification };

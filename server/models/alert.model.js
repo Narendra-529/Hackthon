@@ -64,6 +64,7 @@ const alertSchema = new mongoose.Schema(
         users: mongoose.Schema.Types.Mixed,
       },
     ],
+    lastPointTime:mongoose.Schema.Types.Mixed
   },
   {
     timestamps: true, // This will add createdAt and updatedAt timestamps
