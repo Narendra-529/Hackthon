@@ -20,7 +20,7 @@
 
         <div class="header-form-fields-container">
           <span class="header-form-field-label"
-            >Asset Name <span class="required">*</span></span
+            >Alert Parameter <span class="required">*</span></span
           >
           <mat-form-field appearance="outline" class="width-100"
           
@@ -28,7 +28,7 @@
             <mat-select
               formControlName="parameter"
 
-              placeholder="Select Plant"
+              placeholder="Select Parameter"
               (selectionChange)="onParameterChange($event.value)"
             >
               <mat-option *ngFor="let param of parameters" [value]="param">
@@ -42,7 +42,7 @@
 
       <div class="header-form-fields-container gap-10 m-b-5">
         <span class="header-form-field-label"
-          >Trigger an Alert when the value is
+          >Alert when the Value is
           <span class="required">*</span>
         </span>
         <mat-radio-group

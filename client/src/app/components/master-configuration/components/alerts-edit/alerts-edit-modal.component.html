@@ -8,16 +8,17 @@
   <div stepsContent id="formStepperFirstStep">
     <div align="end" class="buttons-container">
 
-      <!-- <button
+      <button
         id="cancelBtn"
         mat-stroked-button
         type="button"
         color="primary"
         class="header-action-btns previous-btn"
         (click)="onPrevious()"
-      >
+        *ngIf="currentStep === 1"
+        >
         Previous
-      </button> -->
+      </button>
       <button
         id="nextBtn"
         mat-raised-button
@@ -42,7 +43,7 @@
           currentStep === 1
         "
       >
-        Save & Next
+        Save
       </button>
     </div>
 
@@ -60,6 +61,7 @@
       (riskMatrixFormErrorEvent)="onRiskMatrixFormErrorEvent($event)"
       (headerData)="onHeaderDataEvent($event)"
       [initialData]="initialData"
+      
       
       >
 

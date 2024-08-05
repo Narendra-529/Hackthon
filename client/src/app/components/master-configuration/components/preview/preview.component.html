@@ -1,0 +1,23 @@
+<p>Testing </p>
+
+
+
+<div class="createButton">
+    <button
+      (click)="onSimulateBtn()"
+      class="createNewButton"
+      >
+      Simulate
+    </button>
+  </div>
+  <!-- "parameter": "CH4 Emission level",
+  "value": value,
+  "assetId": "79d12",
+  "longerTime": duration * 1000 -->
+
+
+  <p *ngFor="let item of recorsInserted; let i=index" >
+    {{i + 1}} - {{item.parameter }} {{item.value}} 
+
+    
+  </p>

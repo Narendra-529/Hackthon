@@ -30,12 +30,14 @@ import {
   pairwise,
   startWith,
   Subject,
+  take,
   takeUntil,
   tap,
 } from "rxjs";
 import { getFormErrors, numberValidator, rangeValidator } from "../../utils";
 import { forLongerThan, units, userGroups, users } from "../../constants";
 import { ValidationError } from "@app/interfaces";
+import { AlertService } from "../../services/alert.service";
 
 @Component({
   selector: "app-alert-trigger",
@@ -49,33 +51,15 @@ export class AlertTriggerComponent {
   tagsInput: ElementRef<HTMLInputElement>;
 
   @Input() initialData
-  // (va){
-  //   console.log('initialData', va);
-  //   if (va){
-  //     this.triggersForm.patchValue({
-  //       parameter: va.triggers[0].element,
-  //       alertTriggerType: `${va.triggers[0].type}`,
-  //       aboveRange: va.triggers[0].value,
-  //       belowRange: va.triggers[0].value,
-  //       units: va.triggers[0].unit,
-  //       alertType: `${va.triggers[0].alertType}`,
-  //       forLongerThan: va.triggers[0].longerThan,
-  //       sendTo: `${va.triggers[0].sendTo}`,
-  //       userInfo: va.triggers[0].users,
-  //     })
-      
-  //     this.triggersForm.get('alertTriggerType').setValue(`${va.triggers[0].type}`,{emitEvent:true});
-      
-  //     this.matrixHeadertags = va.triggers[0].users || []
-  //     console.log('sendTo', va.triggers[0].users);
-  //     this.matrixHeaderAllTags = va.triggers[0].sendTo === '1' ? this.users : this.userGroups;
-
-  //     // this.triggersForm.patchValue(va);
-  //   }
-  // }
+ 
 
 
   @Output() dataEvent = new EventEmitter<any>();
+
+  tempUserslist = {
+    1:[],
+    2:[]
+  }
 
   parameters = [
     "Co2 Emission level",
@@ -142,7 +126,9 @@ export class AlertTriggerComponent {
     this.triggersForm.get("units").setValue(event);
   }
 
-  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef) {
+  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef,
+    private alertSer:AlertService
+  ) {
     this.triggersForm.get("userInfo").disable();
 
     const check = this.checkFormValidity();
@@ -160,6 +146,18 @@ export class AlertTriggerComponent {
     if(this.initialData){
       
     }
+
+    this.alertSer.Changeddata.pipe(take(1)).subscribe((data)=>{
+      this.triggersForm.patchValue(data.trigger)
+      console.log('data', data);
+      const check = this.checkFormValidity();
+      if (check) {
+        this.emitErrorEvent({});
+      } else {
+        this.emitErrorEvent({ text: "12" });
+
+      }
+    })
 
     // this.riskMatrixFormErrorEvent.emit({
     //   status: "INVALID",
@@ -183,7 +181,6 @@ export class AlertTriggerComponent {
     this.triggersForm
       .get("alertTriggerType")
       .valueChanges.subscribe((value) => {
-        console.log("value", value);
         const aboveRange = this.triggersForm.get("aboveRange");
         const belowRange = this.triggersForm.get("belowRange");
         aboveRange.setValue(null);
@@ -191,7 +188,6 @@ export class AlertTriggerComponent {
         aboveRange.markAsUntouched();
         belowRange.markAsUntouched();
         if (value === "1") {
-          console.log("! valuessaf sdf ", value);
           // this.triggersForm.removeValidators(rangeValidator());
           this.triggersForm.removeValidators([rangeValidator()]);
           aboveRange.setValidators([Validators.required, numberValidator()]);
@@ -222,7 +218,10 @@ export class AlertTriggerComponent {
         pairwise(),
         tap(([prev, current]) => {
           if (prev !== current) {
-            console.log("prev", prev, current);
+          //  this.tempUserslist[prev] = [...this.matrixHeadertags];
+          //  if(this.tempUserslist[current].length){
+          //   this.matrixHeadertags = this.tempUserslist[current];
+          //  }
             this.matrixHeadertags = [];
             if(this.tagsInput)
               {
@@ -378,21 +377,22 @@ export class AlertTriggerComponent {
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
+    // this.tempUserslist = []
     const value = event.option.viewValue.trim();
     const index = this.matrixHeadertags.indexOf(value);
-    console.log("index", index,this.matrixHeadertags);
+    // console.log("index", index,this.matrixHeadertags);
     if (index === -1) {
       this.matrixHeadertags = [...this.matrixHeadertags, value];
     }
     // cson
-    console.log("index", index,this.matrixHeadertags);
+    // console.log("index", index,this.matrixHeadertags);
 
     this.tagsInput.nativeElement.value = "";
     this.triggersForm.patchValue({
       ...this.triggersForm.value,
       userInfo: this.matrixHeadertags,
     });
-    console.log("index", index,this.matrixHeadertags);
+    // console.log("index", index,this.matrixHeadertags);
     
     this.matrixHeaderTagsCtrl.patchValue("");
   }
@@ -407,8 +407,7 @@ export class AlertTriggerComponent {
   checkFormValidity(): boolean {
 
     const form = this.triggersForm.getRawValue();
-    console.log('form', form);
-    if (form.parameter && form.alertTriggerType && form.units && form.alertType && form.forLongerThan && form.sendTo && form.userInfo) {
+    if (form.parameter && form.alertTriggerType && form.units && form.alertType && form.forLongerThan && form.sendTo && form.userInfo.length) {
       if (form.alertTriggerType === "1") {
         return form.aboveRange;
       } else if (form.alertTriggerType === "2") {

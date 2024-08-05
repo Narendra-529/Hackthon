@@ -23,7 +23,6 @@ export class AlertsEditComponent {
   ngOnInit(): void {
 
     this.route.data.subscribe((data) => {
-      console.log('routre',data);
       if (data['form'] && Object.keys(data['form']).length) {
         this.riskMatrixData = data['form'];
       }

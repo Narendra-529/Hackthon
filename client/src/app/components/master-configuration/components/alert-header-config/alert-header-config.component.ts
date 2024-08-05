@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { debounceTime, Subject, takeUntil } from 'rxjs';
+import { debounceTime, Subject, take, takeUntil } from 'rxjs';
 import { getFormErrors } from '../../utils';
 import { Store } from '@ngrx/store';
 import { updateMatrixHeaderForm } from '../../state/risk-matrix.actions';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-alert-header-config',
@@ -33,54 +34,77 @@ export class AlertHeaderConfigComponent implements OnInit {
     }
   }
 
+  @Input() set formStatus(status: string) {
+    
+  }
+
+
   unsubscribe$ = new Subject<void>();
 
   plants = [
     // this is just a dummy data will be fetched from the server later
     {
-      plantId: '1231asd1',
-      plantName: 'Plant 1'
+      plantId: 'ONGC-146',
+      plantName: 'ONGC'
     },
     {
-      plantId: 'sdfsdfsasd2',
-      plantName: 'Plant 2'
+      plantId: 'RI-81',
+      plantName: 'Reliance Industries'
     },
     {
-      plantId: '12sdfdfsdfsf3',
-      plantName: 'Plant 3'
+      plantId: 'LT-71',
+      plantName: 'Larsen & Toubro'
     }
   ];
+
 
 
   locations = [
-    // this is just a dummy data will be fetched from the server later
-    {
-      locationId: '1231asd1',
-      locationName: 'Plant 1'
-    },
-    {
-      locationId: 'sdfsdfsasd2',
-      locationName: 'Plant 2'
-    },
-    {
-      locationId: '12sdfdfsdfsf3',
-      locationName: 'Plant 3'
-    }
-  ];
+  {
+    "locationName": "Nazira-Rig1",
+    "locationId": "146R-1"
+  },
+  {
+    "locationName": "Nazira-Rig2",
+    "locationId": "146R-2"
+  },
+  {
+    "locationName": "Meshana-Rig1",
+    "locationId": "044R-1"
+  },
+  {
+    "locationName": "Meshana-Rig2",
+    "locationId": "044R-2"
+  },
+  {
+    "locationName": "Uran-Rig1",
+    "locationId": "246R-2"
+  }
+]
+
+
 
   assets = [
     // this is just a dummy data will be fetched from the server later
     {
-      assetId: '1231asd1',
-      assetName: 'Plant 1'
+      assetId: '146R-1-GT004',
+      assetName: 'Gas Turbine-4'
     },
     {
-      assetId: 'sdfsdfsasd2',
-      assetName: 'Plant 2'
+      assetId: '146R-1-GT007',
+      assetName: 'Gas Turbine-7'
     },
     {
-      assetId: '12sdfdfsdfsf3',
-      assetName: 'Plant 3'
+      assetId: '146R-2-IN018',
+      assetName: 'Incinerator-18'
+    },
+    {
+      assetId: '044R-1-IN07',
+      assetName: 'Incinerator-7'
+    },
+    {
+      assetId: '044R-2-IN131',
+      assetName: 'Incinerator-131'
     }
   ];
 
@@ -121,7 +145,8 @@ compareAssets(plant1: any, plant2: any): boolean {
 
 
   constructor(private fb: FormBuilder,
-    private store: Store<any>
+    private store: Store<any>,
+    private alertService: AlertService
   ) {
     this.riskMatrixHeaderForm.get('location').disable();
     this.riskMatrixHeaderForm.get('asset').disable();
@@ -132,6 +157,15 @@ compareAssets(plant1: any, plant2: any): boolean {
   }
 
   ngOnInit(): void {
+
+    this.alertService.Changeddata.pipe(take(1)).subscribe((data) => {
+     
+     this.riskMatrixHeaderForm.patchValue(data.header);
+     this.riskMatrixHeaderForm.get('location').enable();
+      this.riskMatrixHeaderForm.get('asset').enable();
+    }
+  );
+
     // this.riskMatrixFormErrorEvent.emit({
     //   status: 'INVALID',
     //   message: `Please fill all the required fields`

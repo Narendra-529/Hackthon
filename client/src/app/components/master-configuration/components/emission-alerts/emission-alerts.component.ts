@@ -9,6 +9,7 @@ import { emissionsColumns } from '../../constants';
 import { AlertService } from '../../services/alert.service';
 import { AlertsEditModalComponent } from '../alerts-edit/alerts-edit-modal.component';
 import { Router } from '@angular/router';
+import { PreviewComponent } from '../preview/preview.component';
 
 @Component({
   selector: 'app-emission-alerts',
@@ -89,7 +90,6 @@ export class EmissionAlertsComponent implements OnInit {
 
     this.emissionAlerts$ =this.alertService.getAlertsList().pipe(
       map((data) => {
-        console.log('data', data);
         this.rawData = JSON.parse(JSON.stringify(data));
 
         this.configOptions.allColumns = emissionsColumns;
@@ -175,6 +175,7 @@ export class EmissionAlertsComponent implements OnInit {
       this.editHandler(data);
         break;
       case 'preview':
+        this.previewHandler(data);
         break;
       case 'copy':
         break;
@@ -193,7 +194,7 @@ export class EmissionAlertsComponent implements OnInit {
           title: 'Edit',
           action: 'edit'
         },
-        { title: 'Mark as Inactive', action: 'inactive' },
+        { title: 'preview', action: 'preview' },
 
       );
 
@@ -218,13 +219,11 @@ export class EmissionAlertsComponent implements OnInit {
   };
 
  returnById = (id: string): any => {
-  console.log('id', id,this.rawData);
     return this.rawData.find((alert) => alert._id === id);
   }
 
 
   editHandler(data) {
-    console.log('data', data);
     this.router.navigate(['/master-configuration/alerts/edit', data.id], {
       state: { formData: this.returnById(data.id) }
     });
@@ -240,6 +239,20 @@ export class EmissionAlertsComponent implements OnInit {
     //     type: 'edit'
     //   }
     // });
+  }
+
+
+  previewHandler(data) {
+    this.dialog.open(PreviewComponent, {
+      panelClass:'preview-dialog',
+      disableClose: false,
+      width: '600px',
+      height: '400px',
+      data: {
+        formData: this.returnById(data.id),
+        type: 'preview'
+      }
+    });
   }
 
 }

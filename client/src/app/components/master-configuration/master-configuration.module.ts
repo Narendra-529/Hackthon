@@ -49,6 +49,7 @@ import { StepsheaderComponent } from './components/stepsheader/stepsheader.compo
 import { AlertHeaderConfigComponent } from './components/alert-header-config/alert-header-config.component';
 import { riskMatrixConfigurationReducer } from './state/risk-matrix.reducer';
 import { AlertTriggerComponent } from './components/alert-trigger/alert-trigger.component';
+import { PreviewComponent } from './components/preview/preview.component';
 // import { RiskMatrixEffects } from './state/risk-matrix.effects';
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { AlertTriggerComponent } from './components/alert-trigger/alert-trigger.
     AlertHeaderConfigComponent,
     AlertTriggerComponent,
 
+    PreviewComponent
 
   ],
   imports: [

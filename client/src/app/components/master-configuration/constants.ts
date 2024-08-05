@@ -115,51 +115,51 @@ export const  emissionsColumns: Column[] = [
       hasPreTextImage: false,
       hasPostTextImage: false
     },
-    {
-      id: 'status',
-      displayName: 'Status',
-      type: 'string',
-      controlType: 'string',
-      order: 5,
-      hasSubtitle: true,
-      showMenuOptions: false,
-      subtitleColumn: 'parentSubId',
-      searchable: false,
-      sortable: true,
-      hideable: false,
-      visible: true,
-      movable: false,
-      stickable: false,
-      sticky: false,
-      groupable: true,
-      titleStyle: {
-        'overflow-wrap': 'anywhere'
-      },
-      subtitleStyle: {
-        'font-size': '80%',
-        color: 'darkgray',
-        'overflow-wrap': 'anywhere'
-      },
-      hasPreTextImage: false,
-      hasPostTextImage: false,
-      hasConditionalStyles: true,
-          // titleStyle: {
-          //   textTransform: 'capitalize',
-          //   fontWeight: 500,
-          //   display: 'flex',
-          //   flexDirection: 'row',
-          //   justifyContent: 'center',
-          //   alignItems: 'center',
-          //   position: 'relative',
-          //   top: '10px',
-          //   width: '90px',
-          //   right: '15px',
-          //   height: '24px',
-          //   background: '#FEF3C7',
-          //   color: '#92400E',
-          //   borderRadius: '12px'
-          // }
-    },
+    // {
+    //   id: 'status',
+    //   displayName: 'Status',
+    //   type: 'string',
+    //   controlType: 'string',
+    //   order: 5,
+    //   hasSubtitle: true,
+    //   showMenuOptions: false,
+    //   subtitleColumn: 'parentSubId',
+    //   searchable: false,
+    //   sortable: true,
+    //   hideable: false,
+    //   visible: true,
+    //   movable: false,
+    //   stickable: false,
+    //   sticky: false,
+    //   groupable: true,
+    //   titleStyle: {
+    //     'overflow-wrap': 'anywhere'
+    //   },
+    //   subtitleStyle: {
+    //     'font-size': '80%',
+    //     color: 'darkgray',
+    //     'overflow-wrap': 'anywhere'
+    //   },
+    //   hasPreTextImage: false,
+    //   hasPostTextImage: false,
+    //   hasConditionalStyles: true,
+    //       // titleStyle: {
+    //       //   textTransform: 'capitalize',
+    //       //   fontWeight: 500,
+    //       //   display: 'flex',
+    //       //   flexDirection: 'row',
+    //       //   justifyContent: 'center',
+    //       //   alignItems: 'center',
+    //       //   position: 'relative',
+    //       //   top: '10px',
+    //       //   width: '90px',
+    //       //   right: '15px',
+    //       //   height: '24px',
+    //       //   background: '#FEF3C7',
+    //       //   color: '#92400E',
+    //       //   borderRadius: '12px'
+    //       // }
+    // },
     // {
     //   id: 'usergroups',
     //   displayName: 'User Groups',
@@ -215,6 +215,9 @@ export const timeFilter: MatrixStatus[] = [
 
 
 export const forLongerThan =[
+  '5 Seconds',
+  '10 Seconds', 
+  '20 Seconds',
   '1 Minute',
   '2 Minutes',
   '5 Minutes',
@@ -227,7 +230,12 @@ export const forLongerThan =[
   '24 Hours'
 ]
 
-export const units = ['kg/MWhr']
+export const units = [
+  'Parts per Million (ppm)',
+  'Parts per Billion (ppb)',
+  'Milligrams per Cubic Meter (mg/m³)',
+  'Micrograms per Cubic Meter (µg/m³)']
+
 
 export const users = ['Prashanth','Geetha','Narendra']
 

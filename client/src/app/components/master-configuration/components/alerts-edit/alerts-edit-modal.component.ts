@@ -90,14 +90,12 @@ export class AlertsEditModalComponent implements OnInit {
 
   saveNext() {
 
-    console.log("This form Data",this.formData)
     const queryParams = this.route.snapshot.queryParams;
-    console.log(queryParams);
-
+this.isLoading  = true
 
 
 const body={
-  _id:this.initialData._id,
+  _id:this.initialData?._id || null,
   "alertName": this.formData.header?.name,
   description:this.formData.header.description,
   "plant": this.formData.header.plantInfo,
@@ -117,7 +115,7 @@ const body={
 }
 
 
-if(this.initialData._id){
+if(this.initialData?._id){
   this.alertService.updateAlert(body).subscribe({
     next: (response) => {
       this.toast.show({
@@ -126,12 +124,14 @@ if(this.initialData._id){
       });
       this.dialogRef.close();
       this.router.navigate(['/master-configuration/alerts']);
+      this.isLoading = false
     },
     error: (error) => {
       this.toast.show({
         text: 'Error updating alert',
         type: 'warning'
       });
+      this.isLoading = false
     }
   });
   return;
@@ -148,12 +148,14 @@ if(this.initialData._id){
         });
         this.dialogRef.close();
         this.router.navigate(['/master-configuration/alerts']);
+        this.isLoading = false
       },
       error: (error) => {
         this.toast.show({
           text: 'Error creating alert',
           type: 'warning'
         });
+        this.isLoading = false
       }
     });
   }
@@ -183,6 +185,8 @@ if(this.initialData._id){
   }
 
   next() {
+    this.alertService.Changeddata.next(this.formData);
+
     this.currentStep++;
     // this.checkStepperStatus();
   }
