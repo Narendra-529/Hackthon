@@ -194,7 +194,7 @@ export class EmissionAlertsComponent implements OnInit {
           title: 'Edit',
           action: 'edit'
         },
-        { title: 'preview', action: 'preview' },
+        { title: 'Preview', action: 'preview' },
 
       );
 
