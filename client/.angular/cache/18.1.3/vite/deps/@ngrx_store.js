@@ -21,7 +21,7 @@ import {
   ɵɵdefineNgModule,
   ɵɵgetInheritedFactory,
   ɵɵinject
-} from "./chunk-GMUXDIJ2.js";
+} from "./chunk-IP3AV2BX.js";
 import {
   queueScheduler
 } from "./chunk-TQO6VFQJ.js";
@@ -41,7 +41,7 @@ import "./chunk-YTN62GH5.js";
 import {
   __spreadProps,
   __spreadValues
-} from "./chunk-3OV72XIM.js";
+} from "./chunk-KBUIKKCC.js";
 
 // node_modules/@angular/core/fesm2022/rxjs-interop.mjs
 function toSignal(source, options) {

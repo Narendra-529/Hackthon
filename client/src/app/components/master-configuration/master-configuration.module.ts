@@ -50,6 +50,7 @@ import { AlertHeaderConfigComponent } from './components/alert-header-config/ale
 import { riskMatrixConfigurationReducer } from './state/risk-matrix.reducer';
 import { AlertTriggerComponent } from './components/alert-trigger/alert-trigger.component';
 import { PreviewComponent } from './components/preview/preview.component';
+import { RealTimeChartComponent } from './components/real-time-chart/real-time-chart.component';
 // import { RiskMatrixEffects } from './state/risk-matrix.effects';
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { PreviewComponent } from './components/preview/preview.component';
     StepsheaderComponent,
     AlertHeaderConfigComponent,
     AlertTriggerComponent,
+    RealTimeChartComponent,
 
     PreviewComponent
 
