@@ -149,7 +149,6 @@ export class AlertTriggerComponent {
 
     this.alertSer.Changeddata.pipe(take(1)).subscribe((data)=>{
       this.triggersForm.patchValue(data.trigger)
-      console.log('data', data);
       const check = this.checkFormValidity();
       if (check) {
         this.emitErrorEvent({});

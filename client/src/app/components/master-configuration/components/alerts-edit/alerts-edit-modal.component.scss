@@ -17,6 +17,7 @@
   }
 
   .next-btn {
+    position: relative;
     margin-right: 22px;
     background-color: $radio-button-checked;
     border-color: $radio-button-checked;
@@ -85,4 +86,17 @@
   max-height: calc(100vh - 60px);
   box-sizing: border-box;
   /* Adjust as needed */
+}
+
+::ng-deep .mat-progress-spinner circle,
+.mat-spinner circle {
+
+    stroke: $blue-main
+}
+
+.loading-spinner {
+  position: absolute;
+  top: -4px;
+  left: 42%;
+  opacity: 0.6;
 }

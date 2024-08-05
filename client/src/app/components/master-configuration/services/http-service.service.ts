@@ -9,7 +9,6 @@ export class HttpService {
   constructor(private http: HttpClient) {}
 
   getData({ apiUrl }): Observable<any> {
-    console.log('apiUrl', apiUrl);
     return this.http.get<any>(`${apiUrl}`);
   }
 

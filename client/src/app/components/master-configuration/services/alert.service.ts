@@ -157,7 +157,7 @@ export class AlertService {
   // Insert a record every 1.5 seconds
   startInsertingRecords(value, duration, type, parameter, assetId) {
     let max_duration = duration;
-    console.log("startInsertingRecords", value, duration, type);
+    // console.log("startInsertingRecords", value, duration, type);
     if (duration > 10) {
       max_duration = 10;
     }
@@ -173,14 +173,14 @@ export class AlertService {
   }
 
   createNewEmissionRecord(payload) {
-    console.log("payload", payload);
+    // console.log("payload", payload);
     // this.httpService
 
     this.httpService
       .postData({ apiUrl: `${this.envir}emission`, body: payload })
       .subscribe({
         next: (data) => {
-          console.log("data", data);
+          // console.log("data", data);
           this.insertedData.next(payload);
         },
         error: (error) => {
