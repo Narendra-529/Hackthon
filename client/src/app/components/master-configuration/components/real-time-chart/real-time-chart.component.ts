@@ -21,7 +21,7 @@ export class RealTimeChartComponent implements OnInit,OnDestroy, AfterViewInit {
   private data: number[] = [];
   private timeoutId: any;
   private dataSubscription: Subscription | undefined;
-  @Input() dataSource
+  @Input() dataSource:any
   constructor(private alertService:AlertService){
     
   }
@@ -29,7 +29,7 @@ export class RealTimeChartComponent implements OnInit,OnDestroy, AfterViewInit {
   ngOnInit(): void {
     // Register all necessary components and plugins
     Chart.register(...registerables, StreamingPlugin,annotationPlugin,zoomPlugin);
-    this.initializeChart(this.dataSource.formData.triggers[0].value);
+    this.initializeChart(this.dataSource.formData.triggers[0].value,this.dataSource.formData.triggers[0].element+ ' in ' + this.dataSource.formData.triggers[0].unit);
     this.dataSubscription=this.alertService.insertedData.subscribe((data) => {
       console.log("Inserted data",data)
       // this.recorsInserted.push(data);
@@ -69,10 +69,10 @@ export class RealTimeChartComponent implements OnInit,OnDestroy, AfterViewInit {
   ngAfterViewInit(): void {
     // Set canvas height after view initialization
     const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-    canvas.style.height = '300px';
+    canvas.style.height = '400px';
   }
 
-  initializeChart(threshold): void {
+  initializeChart(threshold, ylabel): void {
     console.log(threshold)
     this.chart = new Chart('canvas', {
       type: 'line',
@@ -97,6 +97,10 @@ export class RealTimeChartComponent implements OnInit,OnDestroy, AfterViewInit {
               pause: false,
               onRefresh: ()=>{}
             },
+            title: {
+              display: true,
+              text: 'Time'
+            },
             time: {
               unit: 'second', // Display units as seconds
               // stepSize: 1,
@@ -114,7 +118,11 @@ export class RealTimeChartComponent implements OnInit,OnDestroy, AfterViewInit {
           
           y: {
             beginAtZero: true,
-            suggestedMax: threshold+10
+            suggestedMax: threshold+10,
+            title: {
+              display: true,
+              text: ylabel
+            }
           }
         },
         plugins: {
@@ -128,9 +136,14 @@ export class RealTimeChartComponent implements OnInit,OnDestroy, AfterViewInit {
                 borderWidth: 2,
                 label: {
                   content: 'Threshold',
-                  // enabled: true,
-                  position: 'center'
+                  position: 'end',
+                  backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                  font: {
+                    size: 12
+                  },
+                  yAdjust: 10,
                 }
+                
               }
             }
           },
@@ -144,7 +157,17 @@ export class RealTimeChartComponent implements OnInit,OnDestroy, AfterViewInit {
               enabled: true,
               mode: 'x',
             }
-          }
+          },
+          // tooltip: {
+          //   enabled: true,
+          //   mode: 'index', // 'index' or 'nearest'
+          //   intersect: false,
+          //   callbacks: {
+          //     label: function(context) {
+          //       return `X: ${new Date(context.parsed.x).toLocaleTimeString()}, Y: ${context.parsed.y}`;
+          //     }
+          //   }
+          // },
         }
       }
     });

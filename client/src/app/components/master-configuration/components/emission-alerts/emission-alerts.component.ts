@@ -246,8 +246,8 @@ export class EmissionAlertsComponent implements OnInit {
     this.dialog.open(PreviewComponent, {
       panelClass:'preview-dialog',
       disableClose: false,
-      width: '600px',
-      height: '400px',
+      width: '700px',
+      height: '500px',
       data: {
         formData: this.returnById(data.id),
         type: 'preview'
