@@ -62,9 +62,7 @@ export class PreviewComponent implements OnInit {
             }
 
 
-            // this.recordsInserted.push(data);
 
-      // Set a new timeout
       this.timeoutHandle = setTimeout(() => {
         this.isLoading = false;
       }, 1500);

@@ -1,5 +1,5 @@
 // src/app/real-time-chart/real-time-chart.component.ts
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js/auto';
 // import 'chartjs-plugin-streaming';
 
@@ -8,6 +8,7 @@ import 'chartjs-adapter-moment';
 import { AlertService } from '../../services/alert.service';
 import { Subscription } from 'rxjs';
 import zoomPlugin from 'chartjs-plugin-zoom';
+import annotationPlugin from 'chartjs-plugin-annotation';
 
 @Component({
   selector: 'app-real-time-chart',
@@ -20,14 +21,15 @@ export class RealTimeChartComponent implements OnInit,OnDestroy, AfterViewInit {
   private data: number[] = [];
   private timeoutId: any;
   private dataSubscription: Subscription | undefined;
+  @Input() dataSource
   constructor(private alertService:AlertService){
     
   }
 
   ngOnInit(): void {
     // Register all necessary components and plugins
-    Chart.register(...registerables, StreamingPlugin,zoomPlugin);
-    this.initializeChart();
+    Chart.register(...registerables, StreamingPlugin,annotationPlugin,zoomPlugin);
+    this.initializeChart(this.dataSource.formData.triggers[0].value);
     this.dataSubscription=this.alertService.insertedData.subscribe((data) => {
       console.log("Inserted data",data)
       // this.recorsInserted.push(data);
@@ -70,7 +72,8 @@ export class RealTimeChartComponent implements OnInit,OnDestroy, AfterViewInit {
     canvas.style.height = '300px';
   }
 
-  initializeChart(): void {
+  initializeChart(threshold): void {
+    console.log(threshold)
     this.chart = new Chart('canvas', {
       type: 'line',
       data: {
@@ -88,7 +91,7 @@ export class RealTimeChartComponent implements OnInit,OnDestroy, AfterViewInit {
           x: {
             type: 'realtime',
             realtime: {
-              duration: 20000,
+              duration: 40000,
               refresh: 1000,
               delay: 0,
               pause: false,
@@ -110,10 +113,27 @@ export class RealTimeChartComponent implements OnInit,OnDestroy, AfterViewInit {
           },
           
           y: {
-            beginAtZero: true
+            beginAtZero: true,
+            suggestedMax: threshold+10
           }
         },
         plugins: {
+          annotation: {
+            annotations: {
+              line1: {
+                type: 'line',
+                yMin: threshold,
+                yMax: threshold,
+                borderColor: 'red',
+                borderWidth: 2,
+                label: {
+                  content: 'Threshold',
+                  // enabled: true,
+                  position: 'center'
+                }
+              }
+            }
+          },
           zoom: {
             zoom: {
               // enabled: true,

@@ -159,7 +159,7 @@ export class AlertService {
     let max_duration = duration;
     // console.log("startInsertingRecords", value, duration, type);
     if (duration > 10) {
-      max_duration = 10;
+      max_duration = duration;
     }
     const records = this.generateRecords(
       value,

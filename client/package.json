@@ -24,6 +24,7 @@
     "@ngrx/store-devtools": "^17.2.0",
     "chart.js": "^4.4.3",
     "chartjs-adapter-moment": "^1.0.1",
+    "chartjs-plugin-annotation": "^3.0.1",
     "chartjs-plugin-streaming": "^2.0.0",
     "chartjs-plugin-zoom": "^2.0.1",
     "install": "^0.13.0",
