@@ -178,6 +178,7 @@ export class AlertsComponent implements OnInit {
 
 
       onClickCreateNew = () => {
+        this.alertService.Changeddata.next(null);
         this.tabIndex = -1
         const ref = this.dialog.open(AlertsEditModalComponent, {
           maxWidth: '100vw',
