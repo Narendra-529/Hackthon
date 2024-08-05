@@ -52,10 +52,10 @@ export class PreviewComponent implements OnInit {
 
 
       ngOnInit(): void {
-        this.alertService.insertedData.subscribe((data) => {
-            console.log("Inserted data",data)
-            this.recorsInserted.push(data);
-            });
+        // this.alertService.insertedData.subscribe((data) => {
+        //     console.log("Inserted data",data)
+        //     this.recorsInserted.push(data);
+        //     });
         
       }
       
