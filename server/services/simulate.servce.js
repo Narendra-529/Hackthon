@@ -1,9 +1,10 @@
 const { Alert } = require("../models/alert.model");
 const LogModel = require("../models/alertlog.model");
+const Emission = require("../models/emission.model");
 const { sendNotification } = require("../notification");
 
-async function simulateProcess(req,res) {
-  let { parameter, equipment , value} = req.body;
+async function simulateProcess(req, res) {
+  let { parameter, equipment, value } = req.body;
   function generateRecords(value) {
     const records = [];
     let timestamp = Date.now() - 60 * 60 * 1000;
@@ -83,20 +84,13 @@ async function simulateProcess(req,res) {
     };
   }
 
-  async function LogAlertDetails(alert, messagepayload) {
-    try {
-      let payload = {
-        logMessage: messagepayload.body,
-        alertDetails: { ...alert },
-      };
-      await new LogModel(payload).save();
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  
 
-  let dbRecords = await Alert.find({ 'asset.assetId': equipment} ).lean();
-  console.log(dbRecords,equipment,medianValue)
+  let dbRecords = await Alert.find({
+    "asset.assetId": equipment,
+    "triggers.0.element": parameter,
+  }).lean();
+  console.log(dbRecords, equipment, medianValue);
 
   async function processRecords(dbRecords, medianValue, records) {
     for (const rec of dbRecords) {
@@ -105,31 +99,46 @@ async function simulateProcess(req,res) {
           title: `${rec.alertName} - ${rec.asset?.assetName} in ${rec.location.locationName}`,
           body: `${trigger.element} emissions has reached the Danger level, Please evacuate the ${rec.asset?.assetName} premises`,
         };
-  
+
         if (trigger.type == 2 && medianValue <= trigger.value) {
-        console.log('inside',trigger.type)
+          console.log("inside", trigger.type);
           await sendNotification(payload);
-          await LogAlertDetails(rec, payload);
-        } else if (trigger.type == 1  && medianValue >= trigger.value) {
-            console.log('inside',trigger.type)
+        //   await LogAlertDetails(rec, payload);
+        } else if (trigger.type == 1 && medianValue >= trigger.value) {
+          console.log("inside", trigger.type);
           await sendNotification(payload);
-          await LogAlertDetails(rec, payload);
+        //   await LogAlertDetails(rec, payload);
         } else if (trigger.type == 3) {
-            console.log('inside',trigger.type)
-          const { countOutsideRange } = checkValues(records, trigger.min, trigger.max);
-          if (countOutsideRange > (records.length / 2)) {
+          console.log("inside", trigger.type);
+          const { countOutsideRange } = checkValues(
+            records,
+            trigger.min,
+            trigger.max
+          );
+          if (countOutsideRange > records.length / 2) {
             await sendNotification(payload);
-            await LogAlertDetails(rec, payload);
+            // await LogAlertDetails(rec, payload);
           }
         }
       }
     }
-    
+
     // Add the next lines of code here that you want to execute after the loops
   }
- await processRecords(dbRecords,medianValue,records)
+  await processRecords(dbRecords, medianValue, records);
 
-return res.json('success')
+  return res.json("success");
 }
 
-module.exports={simulateProcess}
+async function createEmission(req, res) {
+  try {
+    const record = await new Emission(req.body).save();
+    return res.json(record);
+  } catch (err) {
+    return res.status(500).send("Internal Server Error");
+  }
+}
+
+
+
+module.exports = { simulateProcess, createEmission };
