@@ -1,0 +1,14 @@
+  @import 'colors.scss';
+  
+  .createButton {
+    position: relative;
+  
+    .createNewButton {
+      font-size: 14px;
+      padding: 9px 15px;
+      background-color: $blue-main;
+      border: none;
+      color: $white;
+      border-radius: 4px;
+    }
+  }

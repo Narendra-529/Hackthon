@@ -197,5 +197,12 @@ export class AlertsComponent implements OnInit {
         });
 
       }
+
+
+
+      onSimulateBtn(){
+        
+      }
+
 }
 

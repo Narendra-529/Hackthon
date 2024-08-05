@@ -9,7 +9,7 @@
           <mat-form-field class="full-width" appearance="outline">
             <input
               matInput
-              placeholder="Enter Matrix Name"
+              placeholder="Enter Alert Name"
               formControlName="name"
             />
           </mat-form-field>
@@ -18,7 +18,7 @@
   
         <div class="header-form-fields-container">
           <span class="header-form-field-label"
-            >Plant Name <span class="required">*</span></span
+            >Plant <span class="required">*</span></span
           >
           <mat-form-field appearance="outline" class="width-100">
             <mat-select
@@ -29,7 +29,7 @@
             >
               <mat-option *ngFor="let plant of plants" [value]="plant">
                 <span class="plant-description">
-                  {{ plant.plantName }}
+                  {{ plant.plantName }} - {{ plant.plantId }}
                 </span>
               </mat-option>
             </mat-select>
@@ -38,7 +38,7 @@
 
         <div class="header-form-fields-container">
             <span class="header-form-field-label"
-              >Location Name<span class="required">*</span></span
+              >Location <span class="required">*</span></span
             >
             <mat-form-field appearance="outline" class="width-100">
               <mat-select
@@ -49,7 +49,7 @@
               >
                 <mat-option *ngFor="let plant of locations" [value]="plant">
                   <span class="plant-description">
-                    {{ plant.locationName }}
+                    {{ plant.locationName }} - {{ plant.locationId }}
                   </span>
                 </mat-option>
               </mat-select>
@@ -58,7 +58,7 @@
 
           <div class="header-form-fields-container">
             <span class="header-form-field-label"
-              >Asset Name <span class="required">*</span></span
+              >Asset <span class="required">*</span></span
             >
             <mat-form-field appearance="outline" class="width-100"
             
@@ -71,14 +71,16 @@
               >
                 <mat-option *ngFor="let plant of assets" [value]="plant">
                   <span class="plant-description">
-                    {{ plant.assetName }}
+                    {{ plant.assetName }} -- {{ plant.assetId }}
                   </span>
                 </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div class="header-form-fields-container">
-            <span class="header-form-field-label">What is Detected</span>
+            <span class="header-form-field-label">What is Detected
+              <span class="required">*</span>
+            </span>
             <mat-form-field class="full-width" appearance="outline">
               <input
                 formControlName="description"
