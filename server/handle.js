@@ -51,7 +51,7 @@ async function processRecord(doc) {
   for (const rec of dbRecords) {
     for (const trigger of rec.triggers) {
       let payload = {
-        title: `${rec.alertName} - ${rec.asset?.assetName} in ${rec.location.locationName}`,
+        title: `${rec.alertName} for ${rec.asset?.assetName} in ${rec.location.locationName}`,
         body: `${trigger.element} emissions has reached the Danger level, Please evacuate the ${rec.asset?.assetName} premises`,
       };
 
@@ -66,7 +66,7 @@ async function processRecord(doc) {
               await sendNotification(payload);
               await LogAlertDetails(rec, payload);
               await Alert.findByIdAndUpdate(rec._id, { lastPointTime: null });
-              console.log(diff, "ffff");
+              console.log(diff, "diff in time");
             }
           } else {
             await Alert.findByIdAndUpdate(rec._id, {
@@ -90,7 +90,7 @@ async function processRecord(doc) {
               await sendNotification(payload);
               await LogAlertDetails(rec, payload);
               await Alert.findByIdAndUpdate(rec._id, { lastPointTime: null });
-              console.log(diff, "ffff");
+              console.log(diff, "diff in time");
             }
           } else {
             await Alert.findByIdAndUpdate(rec._id, {
