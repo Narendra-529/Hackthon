@@ -43,6 +43,13 @@
           currentStep === 1
         "
       >
+      <mat-progress-spinner
+      *ngIf="isLoading"
+      mode="indeterminate"
+      class="loading-spinner"
+      diameter="20"
+    ></mat-progress-spinner>
+
         Save
       </button>
     </div>

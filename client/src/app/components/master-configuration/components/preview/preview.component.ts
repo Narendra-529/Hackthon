@@ -14,8 +14,9 @@ export class PreviewComponent implements OnInit {
     ) {
     }
 
-
-    recorsInserted = [];
+    isLoading: boolean = false;
+    recordsInserted: any[] = [];
+    timeoutHandle: any;
 
 
     forLongerThan =[
@@ -53,18 +54,30 @@ export class PreviewComponent implements OnInit {
 
       ngOnInit(): void {
         this.alertService.insertedData.subscribe((data) => {
-            console.log("Inserted data",data)
-            this.recorsInserted.push(data);
+            this.isLoading = true;
+
+            // Clear the existing timeout if there's any
+            if (this.timeoutHandle) {
+              clearTimeout(this.timeoutHandle);
+            }
+
+
+            this.recordsInserted.push(data);
+
+      // Set a new timeout
+      this.timeoutHandle = setTimeout(() => {
+        this.isLoading = false;
+      }, 1500);
+
             });
         
       }
       
 
     onSimulateBtn() {
-        console.log("Simulate button clicked",this.data)
+        this.isLoading = true
         const trigger = this.data.formData.triggers[0];
 
-        console.log('time',this.mapLongerThan[trigger.longerThan])
         this.alertService.startInsertingRecords(trigger.value, this.mapLongerThan[trigger.longerThan],trigger.type,trigger.element,this.data.formData.asset.assetId)
 
     }
